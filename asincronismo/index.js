@@ -1,6 +1,6 @@
 "use stric"
 
-const {conectarBD,consultaPorGenero} = require("./utils/utils")
+const {conectarBD,consultaPorGenero,consultarActividad} = require("./utils/utils")
 
 conectarBD("MiBD","123456",(error,respuesta) => {
 
@@ -11,12 +11,21 @@ conectarBD("MiBD","123456",(error,respuesta) => {
         return console.error("no se pudo conectar a la BD, contraseña o nombre invalido")
     }
     console.log("conexion exitosa, puede hacerse peticiones")
-    consultaPorGenero("M",(error,respuesta) => {
+    let nombre = "Laura"
+    consultaPorGenero(nombre,(error,respuesta) => {
         if (error){
             return console.error(error)
         }
-        if (respuesta){
-            return console.log(respuesta)
+        if (respuesta && respuesta.length != 0){
+            console.log(respuesta)
+            consultarActividad(nombre,(error,respuesta) => {
+                if(error){
+                    return console.error(error)
+                }
+                if(respuesta){
+                    return console.log(respuesta)
+                }
+            })
         }
 
     })

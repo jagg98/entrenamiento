@@ -1,14 +1,40 @@
 "use stric"
 
+
+const retornarActividadesPorAnalista = (query) => {
+    const activiades = [
+        {
+            analista:"Simon",
+            actividad:"Comer"
+        },
+        {
+            analista:"Simon",
+            actividad:"Correr"
+        },
+        {
+            analista:"Simon",
+            actividad:"Dormir"
+        },
+        {
+            analista:"Simon",
+            actividad:"Descansar"
+        },
+        {
+            analista:"Laura",
+            actividad:"Estudian"
+        },
+    ]
+    return activiades.filter(({analista}) => analista === query)
+}
 const retornarAnalistasPorGenero = (letra) => {
     
     const usuarios = [
         {genero: 'F', nombre:'Luisa'},
         {genero: 'F', nombre:'Camila'},
-        {genero: 'M', nombre:'Simón'},
+        {genero: 'M', nombre:'Simon'},
     ]
-    return usuarios.filter(({genero}) => {
-        return genero == letra
+    return usuarios.filter(({nombre}) => {
+        return nombre == letra
     })
 }
 
@@ -42,9 +68,6 @@ const consultaPorGenero = (genero,callback) => {
         if (!genero){
             callback("Error...letra no ingresada", null)
         }
-        if (genero != "M" && genero != "F"){
-            callback("Error... letra invalida", null)
-        }
         else {
             
             callback(null ,retornarAnalistasPorGenero(genero))
@@ -53,9 +76,27 @@ const consultaPorGenero = (genero,callback) => {
     
 
 }
+const consultarActividad = (analista,callback) => {
+    let timepoConexion = Math.ceil(Math.random()*3000)
+    setTimeout(() => {
+        if(!analista){
+            callback("Error... No ingresó analista" ,null)
+        }
+        else{
+            
+            callback(null ,retornarActividadesPorAnalista(analista))
+
+        }
+
+
+
+    }, timepoConexion)
+
+}
 
 
 module.exports={
     conectarBD,
-    consultaPorGenero
+    consultaPorGenero,
+    consultarActividad
 }
